@@ -1,0 +1,115 @@
+{
+  "_version": "1.1.0",
+  "trees": {
+    "lightbulbState": {
+      "children": [
+        {
+          "children": [
+            {
+              "confidence": 0.6774609088897705,
+              "decision_rule": {
+                "operand": 0.5,
+                "operator": "<",
+                "property": "peopleCount"
+              },
+              "predicted_value": "OFF"
+            },
+            {
+              "confidence": 0.8630361557006836,
+              "decision_rule": {
+                "operand": 0.5,
+                "operator": ">=",
+                "property": "peopleCount"
+              },
+              "predicted_value": "ON"
+            }
+          ],
+          "decision_rule": {
+            "operand": [
+              5,
+              5.6666665
+            ],
+            "operator": "[in[",
+            "property": "timeOfDay"
+          }
+        },
+        {
+          "children": [
+            {
+              "confidence": 0.9947378635406494,
+              "decision_rule": {
+                "operand": [
+                  5.6666665,
+                  20.666666
+                ],
+                "operator": "[in[",
+                "property": "timeOfDay"
+              },
+              "predicted_value": "OFF"
+            },
+            {
+              "children": [
+                {
+                  "confidence": 0.969236433506012,
+                  "decision_rule": {
+                    "operand": 1,
+                    "operator": "<",
+                    "property": "peopleCount"
+                  },
+                  "predicted_value": "OFF"
+                },
+                {
+                  "confidence": 0.8630361557006836,
+                  "decision_rule": {
+                    "operand": 1,
+                    "operator": ">=",
+                    "property": "peopleCount"
+                  },
+                  "predicted_value": "ON"
+                }
+              ],
+              "decision_rule": {
+                "operand": [
+                  20.666666,
+                  5
+                ],
+                "operator": "[in[",
+                "property": "timeOfDay"
+              }
+            }
+          ],
+          "decision_rule": {
+            "operand": [
+              5.6666665,
+              5
+            ],
+            "operator": "[in[",
+            "property": "timeOfDay"
+          }
+        }
+      ]
+    }
+  },
+  "configuration": {
+    "time_quantum": 600,
+    "learning_period": 9000000,
+    "context": {
+      "peopleCount": {
+        "type": "continuous"
+      },
+      "timeOfDay": {
+        "type": "time_of_day",
+        "is_generated": true
+      },
+      "timezone": {
+        "type": "timezone"
+      },
+      "lightbulbState": {
+        "type": "enum"
+      }
+    },
+    "output": [
+      "lightbulbState"
+    ]
+  }
+}

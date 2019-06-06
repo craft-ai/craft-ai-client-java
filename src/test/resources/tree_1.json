@@ -1,0 +1,373 @@
+{
+  "_version": "1.1.0",
+  "configuration": {
+    "time_quantum": 900,
+    "learning_period": 13500000,
+    "context": {
+      "movement": {
+        "type": "continuous"
+      },
+      "light": {
+        "type": "enum"
+      },
+      "tz": {
+        "type": "timezone"
+      },
+      "time": {
+        "type": "time_of_day",
+        "is_generated": true
+      }
+    },
+    "output": [
+      "light"
+    ]
+  },
+  "trees": {
+    "light": {
+      "children": [
+        {
+          "children": [
+            {
+              "confidence": 0.6077240705490112,
+              "decision_rule": {
+                "operand": 1.5,
+                "operator": "<",
+                "property": "movement"
+              },
+              "predicted_value": "OFF"
+            },
+            {
+              "children": [
+                {
+                  "children": [
+                    {
+                      "children": [
+                        {
+                          "children": [
+                            {
+                              "confidence": 0.6474004983901978,
+                              "decision_rule": {
+                                "operand": 3.5,
+                                "operator": "<",
+                                "property": "movement"
+                              },
+                              "predicted_value": "OFF"
+                            },
+                            {
+                              "confidence": 0.6774609088897705,
+                              "decision_rule": {
+                                "operand": 3.5,
+                                "operator": ">=",
+                                "property": "movement"
+                              },
+                              "predicted_value": "ON"
+                            }
+                          ],
+                          "decision_rule": {
+                            "operand": [
+                              4.15,
+                              8.65
+                            ],
+                            "operator": "[in[",
+                            "property": "time"
+                          }
+                        },
+                        {
+                          "confidence": 0.8077218532562256,
+                          "decision_rule": {
+                            "operand": [
+                              8.65,
+                              9.15
+                            ],
+                            "operator": "[in[",
+                            "property": "time"
+                          },
+                          "predicted_value": "ON"
+                        }
+                      ],
+                      "decision_rule": {
+                        "operand": [
+                          4.15,
+                          9.15
+                        ],
+                        "operator": "[in[",
+                        "property": "time"
+                      }
+                    },
+                    {
+                      "confidence": 0.7837526798248291,
+                      "decision_rule": {
+                        "operand": [
+                          9.15,
+                          18.9
+                        ],
+                        "operator": "[in[",
+                        "property": "time"
+                      },
+                      "predicted_value": "OFF"
+                    }
+                  ],
+                  "decision_rule": {
+                    "operand": [
+                      4.15,
+                      18.9
+                    ],
+                    "operator": "[in[",
+                    "property": "time"
+                  }
+                },
+                {
+                  "children": [
+                    {
+                      "children": [
+                        {
+                          "children": [
+                            {
+                              "confidence": 0.4465939402580261,
+                              "decision_rule": {
+                                "operand": [
+                                  18.9,
+                                  19.15
+                                ],
+                                "operator": "[in[",
+                                "property": "time"
+                              },
+                              "predicted_value": "ON"
+                            },
+                            {
+                              "confidence": 0.8077218532562256,
+                              "decision_rule": {
+                                "operand": [
+                                  19.15,
+                                  19.4
+                                ],
+                                "operator": "[in[",
+                                "property": "time"
+                              },
+                              "predicted_value": "OFF"
+                            }
+                          ],
+                          "decision_rule": {
+                            "operand": [
+                              18.9,
+                              19.4
+                            ],
+                            "operator": "[in[",
+                            "property": "time"
+                          }
+                        },
+                        {
+                          "confidence": 0.8077218532562256,
+                          "decision_rule": {
+                            "operand": [
+                              19.4,
+                              19.65
+                            ],
+                            "operator": "[in[",
+                            "property": "time"
+                          },
+                          "predicted_value": "ON"
+                        }
+                      ],
+                      "decision_rule": {
+                        "operand": [
+                          18.9,
+                          19.65
+                        ],
+                        "operator": "[in[",
+                        "property": "time"
+                      }
+                    },
+                    {
+                      "confidence": 0.5679990649223328,
+                      "decision_rule": {
+                        "operand": [
+                          19.65,
+                          20.9
+                        ],
+                        "operator": "[in[",
+                        "property": "time"
+                      },
+                      "predicted_value": "OFF"
+                    }
+                  ],
+                  "decision_rule": {
+                    "operand": [
+                      18.9,
+                      20.9
+                    ],
+                    "operator": "[in[",
+                    "property": "time"
+                  }
+                }
+              ],
+              "decision_rule": {
+                "operand": 1.5,
+                "operator": ">=",
+                "property": "movement"
+              }
+            }
+          ],
+          "decision_rule": {
+            "operand": [
+              4.15,
+              20.9
+            ],
+            "operator": "[in[",
+            "property": "time"
+          }
+        },
+        {
+          "children": [
+            {
+              "children": [
+                {
+                  "confidence": 0.5308282375335693,
+                  "decision_rule": {
+                    "operand": 1.5,
+                    "operator": "<",
+                    "property": "movement"
+                  },
+                  "predicted_value": "OFF"
+                },
+                {
+                  "children": [
+                    {
+                      "children": [
+                        {
+                          "confidence": 0.4714658856391907,
+                          "decision_rule": {
+                            "operand": [
+                              20.9,
+                              0.15
+                            ],
+                            "operator": "[in[",
+                            "property": "time"
+                          },
+                          "predicted_value": "ON"
+                        },
+                        {
+                          "confidence": 0.7432112693786621,
+                          "decision_rule": {
+                            "operand": [
+                              0.15,
+                              0.4
+                            ],
+                            "operator": "[in[",
+                            "property": "time"
+                          },
+                          "predicted_value": "OFF"
+                        }
+                      ],
+                      "decision_rule": {
+                        "operand": [
+                          20.9,
+                          0.4
+                        ],
+                        "operator": "[in[",
+                        "property": "time"
+                      }
+                    },
+                    {
+                      "children": [
+                        {
+                          "confidence": 0.913058578968048,
+                          "decision_rule": {
+                            "operand": [
+                              0.4,
+                              0.65
+                            ],
+                            "operator": "[in[",
+                            "property": "time"
+                          },
+                          "predicted_value": "ON"
+                        },
+                        {
+                          "children": [
+                            {
+                              "confidence": 0.6774609088897705,
+                              "decision_rule": {
+                                "operand": [
+                                  0.65,
+                                  0.9
+                                ],
+                                "operator": "[in[",
+                                "property": "time"
+                              },
+                              "predicted_value": "OFF"
+                            },
+                            {
+                              "confidence": 0.5528743267059326,
+                              "decision_rule": {
+                                "operand": [
+                                  0.9,
+                                  2.9
+                                ],
+                                "operator": "[in[",
+                                "property": "time"
+                              },
+                              "predicted_value": "ON"
+                            }
+                          ],
+                          "decision_rule": {
+                            "operand": [
+                              0.65,
+                              2.9
+                            ],
+                            "operator": "[in[",
+                            "property": "time"
+                          }
+                        }
+                      ],
+                      "decision_rule": {
+                        "operand": [
+                          0.4,
+                          2.9
+                        ],
+                        "operator": "[in[",
+                        "property": "time"
+                      }
+                    }
+                  ],
+                  "decision_rule": {
+                    "operand": 1.5,
+                    "operator": ">=",
+                    "property": "movement"
+                  }
+                }
+              ],
+              "decision_rule": {
+                "operand": [
+                  20.9,
+                  2.9
+                ],
+                "operator": "[in[",
+                "property": "time"
+              }
+            },
+            {
+              "confidence": 0.5543869733810425,
+              "decision_rule": {
+                "operand": [
+                  2.9,
+                  4.15
+                ],
+                "operator": "[in[",
+                "property": "time"
+              },
+              "predicted_value": "OFF"
+            }
+          ],
+          "decision_rule": {
+            "operand": [
+              20.9,
+              4.15
+            ],
+            "operator": "[in[",
+            "property": "time"
+          }
+        }
+      ]
+    }
+  }
+}
