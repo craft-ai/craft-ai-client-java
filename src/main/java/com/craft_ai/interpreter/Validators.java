@@ -1,7 +1,6 @@
 package com.craft_ai.interpreter;
 
-import com.craft_ai.interpreter.exceptions.Exception;
-import com.craft_ai.interpreter.exceptions.InvalidContextValueException;
+import com.craft_ai.exceptions.CraftAiInvalidValueException;
 import com.craft_ai.interpreter.operators.Operators;
 
 import java.util.Arrays;
@@ -21,13 +20,13 @@ public class Validators {
 
   public static void validateContinous(Object value) {
     if (!Operators.isNumberType(value)) {
-      throw new InvalidContextValueException(value, PropertyType.CONTINOUS);
+      throw new CraftAiInvalidValueException(value, PropertyType.CONTINOUS);
     }
   }
 
   public static void validateEnumeration(Object value) {
     if (!(value instanceof String) && !(value instanceof Boolean)) {
-      throw new InvalidContextValueException(value, PropertyType.ENUMERATION);
+      throw new CraftAiInvalidValueException(value, PropertyType.ENUMERATION);
     }
   }
 
@@ -51,7 +50,7 @@ public class Validators {
       }
     }
 
-    throw new InvalidContextValueException(timezone, PropertyType.TIMEZONE);
+    throw new CraftAiInvalidValueException(timezone, PropertyType.TIMEZONE);
   }
 
   public static void validateDayOfMonth(Object value) {
@@ -74,7 +73,7 @@ public class Validators {
       }
     }
 
-    throw new InvalidContextValueException(object, type, String.format("in [%s, %s]", min, max));
+    throw new CraftAiInvalidValueException(object, type, String.format("in [%s, %s]", min, max));
   }
 
   public static void validateTimeOfDay(Object value) {
@@ -87,7 +86,7 @@ public class Validators {
     }
 
     if (timeOfDay < 0f || timeOfDay > 24f) {
-      throw new InvalidContextValueException(value, PropertyType.TIME_OF_DAY, "in (0.0, 24.0)");
+      throw new CraftAiInvalidValueException(value, PropertyType.TIME_OF_DAY, "in (0.0, 24.0)");
     }
   }
 

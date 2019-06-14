@@ -1,6 +1,7 @@
 package com.craft_ai.interpreter;
 
-import com.craft_ai.interpreter.exceptions.Exception;
+import com.craft_ai.exceptions.CraftAiInvalidValueException;
+
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThatCode;
@@ -15,7 +16,7 @@ public class ValidatorsTest {
 
   @Test
   public void test_is_not_continous_value() {
-    assertThatExceptionOfType(Exception.class).isThrownBy(() -> Validators.validateContinous("25"))
+    assertThatExceptionOfType(CraftAiInvalidValueException.class).isThrownBy(() -> Validators.validateContinous("25"))
         .withMessage("'25' is an invalid value for type 'continuous'.");
   }
 
@@ -31,7 +32,7 @@ public class ValidatorsTest {
 
   @Test
   public void test_number_is_not_enumeration_value() {
-    assertThatExceptionOfType(Exception.class).isThrownBy(() -> Validators.validateEnumeration(125))
+    assertThatExceptionOfType(CraftAiInvalidValueException.class).isThrownBy(() -> Validators.validateEnumeration(125))
         .withMessage("'125' is an invalid value for type 'enum'.");
   }
 
@@ -42,13 +43,13 @@ public class ValidatorsTest {
 
   @Test
   public void test_day_of_month_out_of_bounds() {
-    assertThatExceptionOfType(Exception.class).isThrownBy(() -> Validators.validateDayOfMonth(125))
+    assertThatExceptionOfType(CraftAiInvalidValueException.class).isThrownBy(() -> Validators.validateDayOfMonth(125))
         .withMessage("'125' is an invalid value for type 'day_of_month', expected values are in [1, 31].");
   }
 
   @Test
   public void test_day_of_month_with_wrong_type() {
-    assertThatExceptionOfType(Exception.class).isThrownBy(() -> Validators.validateDayOfMonth("25"))
+    assertThatExceptionOfType(CraftAiInvalidValueException.class).isThrownBy(() -> Validators.validateDayOfMonth("25"))
         .withMessage("'25' is an invalid value for type 'day_of_month', expected values are in [1, 31].");
   }
 
@@ -59,13 +60,13 @@ public class ValidatorsTest {
 
   @Test
   public void test_time_of_day_out_of_bounds() {
-    assertThatExceptionOfType(Exception.class).isThrownBy(() -> Validators.validateTimeOfDay(125))
+    assertThatExceptionOfType(CraftAiInvalidValueException.class).isThrownBy(() -> Validators.validateTimeOfDay(125))
         .withMessage("'125' is an invalid value for type 'time_of_day', expected values are in (0.0, 24.0).");
   }
 
   @Test
   public void test_time_of_day_with_wrong_type() {
-    assertThatExceptionOfType(Exception.class).isThrownBy(() -> Validators.validateTimeOfDay("25"))
+    assertThatExceptionOfType(CraftAiInvalidValueException.class).isThrownBy(() -> Validators.validateTimeOfDay("25"))
         .withMessage("'25' is an invalid value for type 'time_of_day', expected values are in (0.0, 24.0).");
   }
 
@@ -101,13 +102,13 @@ public class ValidatorsTest {
 
   @Test
   public void test_hours_of_out_bound() {
-    assertThatExceptionOfType(Exception.class).isThrownBy(() -> Validators.validateTimezone("-25"))
+    assertThatExceptionOfType(CraftAiInvalidValueException.class).isThrownBy(() -> Validators.validateTimezone("-25"))
         .withMessage("'-25' is an invalid value for type 'timezone'.");
   }
 
   @Test
   public void test_minutes_of_out_bound() {
-    assertThatExceptionOfType(Exception.class).isThrownBy(() -> Validators.validateTimezone("15:75"))
+    assertThatExceptionOfType(CraftAiInvalidValueException.class).isThrownBy(() -> Validators.validateTimezone("15:75"))
         .withMessage("'15:75' is an invalid value for type 'timezone'.");
   }
 
@@ -118,7 +119,7 @@ public class ValidatorsTest {
 
   @Test
   public void test_day_of_week_out_of_bounds() {
-    assertThatExceptionOfType(Exception.class).isThrownBy(() -> Validators.validateDayOfWeek(-5))
+    assertThatExceptionOfType(CraftAiInvalidValueException.class).isThrownBy(() -> Validators.validateDayOfWeek(-5))
         .withMessage("'-5' is an invalid value for type 'day_of_week', expected values are in [0, 6].");
   }
 
@@ -129,7 +130,7 @@ public class ValidatorsTest {
 
   @Test
   public void test_month_of_year_out_of_bounds() {
-    assertThatExceptionOfType(Exception.class).isThrownBy(() -> Validators.validateMonthOfYear(-5))
+    assertThatExceptionOfType(CraftAiInvalidValueException.class).isThrownBy(() -> Validators.validateMonthOfYear(-5))
         .withMessage("'-5' is an invalid value for type 'month_of_year', expected values are in [1, 12].");
   }
 

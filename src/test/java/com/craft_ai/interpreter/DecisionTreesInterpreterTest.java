@@ -2,7 +2,7 @@ package com.craft_ai.interpreter;
 
 import com.craft_ai.interpreter.decisiontree.DecisionTreeInterpreter;
 import com.craft_ai.interpreter.decisiontree.DecisionTreeParser;
-import com.craft_ai.interpreter.exceptions.Exception;
+import com.craft_ai.exceptions.CraftAiInvalidContextException;
 import com.craft_ai.interpreter.pojo.DecisionTree;
 import com.craft_ai.interpreter.pojo.Prediction;
 import com.craft_ai.interpreter.tools.Resources;
@@ -54,7 +54,7 @@ public class DecisionTreesInterpreterTest {
     context.put("enum6", "non_applicable");
     context.put("enum7", "average");
 
-    assertThatExceptionOfType(Exception.class)
+    assertThatExceptionOfType(CraftAiInvalidContextException.class)
         .isThrownBy(() -> DecisionTreeInterpreter.interpret(decisionTree, context))
         .withMessage("Required property 'movement' is not defined in the given context");
   }

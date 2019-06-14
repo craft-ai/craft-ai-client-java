@@ -1,6 +1,6 @@
 package com.craft_ai.interpreter.decisionrule;
 
-import com.craft_ai.interpreter.exceptions.Exception;
+import com.craft_ai.exceptions.CraftAiUnknownOperatorException;
 import com.craft_ai.interpreter.operators.Operators;
 import com.craft_ai.interpreter.pojo.DecisionRule;
 
@@ -13,21 +13,16 @@ public class EvaluateDecisionRule {
     double[] operand = decisionRule.getOperand();
 
     switch (decisionRule.getOperator()) {
-    case (Operators.IN): {
+    case (Operators.IN):
       return Operators.intervalOperator(value, operand[0], operand[1]);
-    }
-    case (Operators.GTE): {
+    case (Operators.GTE):
       return Operators.greaterOperator(value, operand[0]);
-    }
-    case (Operators.IS): {
+    case (Operators.IS):
       return Operators.equalOperator(value, operand[0]);
-    }
-    case (Operators.LT): {
+    case (Operators.LT):
       return Operators.lessOperator(value, operand[0]);
-    }
-    default: {
-      throw new Exception("Unknown operator '" + decisionRule.getOperator() + "'.");
-    }
+    default:
+      throw new CraftAiUnknownOperatorException(decisionRule.getOperator());
     }
   }
 

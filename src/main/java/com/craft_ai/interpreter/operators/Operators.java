@@ -1,6 +1,6 @@
 package com.craft_ai.interpreter.operators;
 
-import com.craft_ai.interpreter.exceptions.Exception;
+import com.craft_ai.exceptions.CraftAiInvalidDecisionTreeException;
 
 public class Operators {
 
@@ -18,7 +18,7 @@ public class Operators {
 
   public static boolean intervalOperator(Object property, Object o1, Object o2) {
     if (o1 == null || o2 == null) {
-      throw new Exception("Error interval boundary NULL ");
+      throw new CraftAiInvalidDecisionTreeException("Error interval boundary NULL ");
     }
 
     float operand1 = Float.valueOf(o1.toString());
