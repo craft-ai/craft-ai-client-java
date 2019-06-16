@@ -1,6 +1,6 @@
 package com.craft_ai.interpreter.decisiontree;
 
-import com.craft_ai.interpreter.pojo.DecisionTree;
+import com.craft_ai.interpreter.DecisionTree;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;

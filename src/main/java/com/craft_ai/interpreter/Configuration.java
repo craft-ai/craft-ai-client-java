@@ -1,4 +1,4 @@
-package com.craft_ai.interpreter.pojo;
+package com.craft_ai.interpreter;
 
 import java.util.Map;
 

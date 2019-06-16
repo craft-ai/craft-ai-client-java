@@ -1,7 +1,7 @@
 package com.craft_ai.interpreter;
 
 import com.craft_ai.interpreter.decisiontree.DecisionTreeParser;
-import com.craft_ai.interpreter.pojo.DecisionTree;
+import com.craft_ai.interpreter.DecisionTree;
 import com.craft_ai.interpreter.tools.Resources;
 import org.junit.Test;
 

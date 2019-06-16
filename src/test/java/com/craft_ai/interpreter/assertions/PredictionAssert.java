@@ -1,6 +1,6 @@
 package com.craft_ai.interpreter.assertions;
 
-import com.craft_ai.interpreter.pojo.Prediction;
+import com.craft_ai.interpreter.Prediction;
 import org.assertj.core.api.AbstractAssert;
 
 import java.util.Objects;

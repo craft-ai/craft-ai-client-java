@@ -3,8 +3,11 @@ package com.craft_ai.interpreter;
 import com.craft_ai.interpreter.decisiontree.DecisionTreeInterpreter;
 import com.craft_ai.interpreter.decisiontree.DecisionTreeParser;
 import com.craft_ai.exceptions.CraftAiInvalidContextException;
-import com.craft_ai.interpreter.pojo.DecisionTree;
-import com.craft_ai.interpreter.pojo.Prediction;
+import com.craft_ai.interpreter.DecisionRule;
+import com.craft_ai.interpreter.DecisionTree;
+import com.craft_ai.interpreter.Interval;
+import com.craft_ai.interpreter.Operator;
+import com.craft_ai.interpreter.Prediction;
 import com.craft_ai.interpreter.tools.Resources;
 import org.junit.Test;
 
@@ -12,7 +15,6 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.craft_ai.interpreter.assertions.DecisionRuleAssert.assertThat;
 import static com.craft_ai.interpreter.assertions.PredictionAssert.assertThat;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
@@ -32,7 +34,8 @@ public class DecisionTreesInterpreterTest {
 
     assertThat(prediction).hasConfidence(0.8053388595581055d).hasPredictValue("False");
 
-    assertThat(prediction.getDecisionRule()).hasProperty("time").hasOperator("[in[").hasOperand(0, 18.283333);
+    assertThat(prediction.getDecisionRule())
+        .isEqualTo(DecisionRule.create(Operator.IN, "time", new Interval(0, 18.283333)));
   }
 
   @Test

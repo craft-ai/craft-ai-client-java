@@ -1,7 +1,6 @@
 package com.craft_ai.interpreter;
 
 import com.craft_ai.exceptions.CraftAiInvalidValueException;
-import com.craft_ai.interpreter.operators.Operators;
 
 import java.util.Arrays;
 import java.util.List;
@@ -19,7 +18,7 @@ public class Validators {
       Pattern.compile("^(?<hour>[\\+-]?\\d{2})(?<minute>\\d{2})$"), Pattern.compile("^(?<hour>[\\+-]?\\d{2})$") };
 
   public static void validateContinous(Object value) {
-    if (!Operators.isNumberType(value)) {
+    if (!(value instanceof Number)) {
       throw new CraftAiInvalidValueException(value, PropertyType.CONTINOUS);
     }
   }

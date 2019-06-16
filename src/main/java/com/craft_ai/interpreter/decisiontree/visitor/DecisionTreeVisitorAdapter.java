@@ -1,9 +1,9 @@
 package com.craft_ai.interpreter.decisiontree.visitor;
 
 import com.craft_ai.exceptions.CraftAiInvalidDecisionTreeException;
-import com.craft_ai.interpreter.pojo.Configuration;
-import com.craft_ai.interpreter.pojo.DecisionTree;
-import com.craft_ai.interpreter.pojo.Node;
+import com.craft_ai.interpreter.Configuration;
+import com.craft_ai.interpreter.DecisionTree;
+import com.craft_ai.interpreter.Node;
 
 import java.util.Map;
 

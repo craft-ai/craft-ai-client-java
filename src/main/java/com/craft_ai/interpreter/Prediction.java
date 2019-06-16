@@ -1,4 +1,4 @@
-package com.craft_ai.interpreter.pojo;
+package com.craft_ai.interpreter;
 
 public class Prediction {
 
