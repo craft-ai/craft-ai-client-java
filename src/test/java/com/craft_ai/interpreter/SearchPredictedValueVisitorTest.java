@@ -1,8 +1,7 @@
 package com.craft_ai.interpreter;
 
-import com.craft_ai.interpreter.decisiontree.DecisionTreeParser;
-import com.craft_ai.interpreter.decisiontree.visitor.SearchPredictedValueVisitor;
-import com.craft_ai.interpreter.DecisionTree;
+import com.craft_ai.interpreter.DecisionTreeParser;
+import com.craft_ai.interpreter.visitor.SearchPredictedValueVisitor;
 import com.craft_ai.interpreter.Node;
 import com.craft_ai.interpreter.tools.Resources;
 import org.junit.Test;

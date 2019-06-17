@@ -1,10 +1,10 @@
 package com.craft_ai.interpreter;
 
-import com.craft_ai.interpreter.decisiontree.DecisionTreeInterpreter;
-import com.craft_ai.interpreter.decisiontree.DecisionTreeParser;
+import com.craft_ai.interpreter.DecisionTreeInterpreter;
+import com.craft_ai.interpreter.DecisionTreeParser;
 import com.craft_ai.exceptions.CraftAiInvalidContextException;
 import com.craft_ai.interpreter.DecisionRule;
-import com.craft_ai.interpreter.DecisionTree;
+import com.craft_ai.interpreter;
 import com.craft_ai.interpreter.Interval;
 import com.craft_ai.interpreter.Operator;
 import com.craft_ai.interpreter.Prediction;

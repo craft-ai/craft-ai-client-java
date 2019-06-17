@@ -1,6 +1,6 @@
 package com.craft_ai.interpreter;
 
-import com.craft_ai.interpreter.decisiontree.visitor.DecisionTreeVisitor;
+import com.craft_ai.interpreter.visitor.DecisionTreeVisitor;
 
 import java.util.List;
 
