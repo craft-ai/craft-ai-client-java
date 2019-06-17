@@ -9,9 +9,9 @@ import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonNode;
 
-public class DecisionRuleDeserializer extends JsonDeserializer<DecisionRule> {
+public class DecisionRuleDeserializer extends JsonDeserializer<DecisionRule<?>> {
   @Override
-  public DecisionRule deserialize(JsonParser jp, DeserializationContext context) throws IOException {
+  public DecisionRule<?> deserialize(JsonParser jp, DeserializationContext context) throws IOException {
     JsonNode node = jp.getCodec().readTree(jp);
 
     String operatorString = node.get("operator").asText();

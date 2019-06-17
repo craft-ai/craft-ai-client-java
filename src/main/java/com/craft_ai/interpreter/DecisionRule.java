@@ -7,13 +7,15 @@ import com.craft_ai.exceptions.CraftAiInvalidDecisionTreeException;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 @JsonDeserialize(using = DecisionRuleDeserializer.class)
-public class DecisionRule {
+public abstract class DecisionRule<T> {
   protected Operator operator;
   protected String property;
+  protected T operand;
 
-  public DecisionRule(Operator operator, String property) {
+  public DecisionRule(Operator operator, String property, T operand) {
     this.operator = operator;
     this.property = property;
+    this.operand = operand;
   }
 
   public boolean evaluate(Map<String, ?> context) {
@@ -44,13 +46,28 @@ public class DecisionRule {
             property, operator));
   }
 
-  public static DecisionRule create(Operator operator, String property, Object operand) {
+  @Override
+  public boolean equals(Object other) {
+    if (other instanceof DecisionRule<?>) {
+      DecisionRule<?> castedOther = (DecisionRule<?>) other;
+      return operator.equals(castedOther.operator) && property.equals(castedOther.property)
+          && operand.equals(castedOther.operand);
+    }
+    return false;
+  }
+
+  @Override
+  public String toString() {
+    return String.format("context['%s'] %s %s", property, operator.getLabel(), operand);
+  }
+
+  public static DecisionRule<?> create(Operator operator, String property, Object operand) {
     if (operand instanceof Number) {
       if (!(operator.equals(Operator.GTE) || operator.equals(Operator.LT) || operator.equals(Operator.IS))) {
         throw new CraftAiInvalidDecisionTreeException(
             String.format("Invalid Decision Rule: '%s' is not a valid operator with a number operand.", operator));
       }
-      return new NumberDecisionRule(property, operator, ((Number) operand).doubleValue());
+      return new NumberDecisionRule(property, operator, ((Number) operand));
     }
     if (operand instanceof String) {
       if (!operator.equals(Operator.IS)) {

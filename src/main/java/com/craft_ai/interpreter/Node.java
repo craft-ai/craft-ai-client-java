@@ -7,7 +7,7 @@ import java.util.List;
 public class Node {
 
   private double confidence;
-  private DecisionRule decisionRule;
+  private DecisionRule<?> decisionRule;
   private String predictedValue;
 
   private List<Node> children;
@@ -20,11 +20,11 @@ public class Node {
     this.confidence = confidence;
   }
 
-  public DecisionRule getDecisionRule() {
+  public DecisionRule<?> getDecisionRule() {
     return decisionRule;
   }
 
-  public void setDecisionRule(DecisionRule decisionRule) {
+  public void setDecisionRule(DecisionRule<?> decisionRule) {
     this.decisionRule = decisionRule;
   }
 

@@ -4,7 +4,7 @@ public class Prediction {
 
   private double confidence;
   private Object predictValue;
-  private DecisionRule decisionRule;
+  private DecisionRule<?> decisionRule;
 
   public double getConfidence() {
     return confidence;
@@ -22,11 +22,11 @@ public class Prediction {
     this.predictValue = predictValue;
   }
 
-  public DecisionRule getDecisionRule() {
+  public DecisionRule<?> getDecisionRule() {
     return decisionRule;
   }
 
-  public void setDecisionRule(DecisionRule decisionRule) {
+  public void setDecisionRule(DecisionRule<?> decisionRule) {
     this.decisionRule = decisionRule;
   }
 }
