@@ -104,6 +104,17 @@ public enum PropertyType {
       return "numbers";
     }
   },
+  PERIODIC("periodic") {
+    @Override
+    protected boolean validateNumberValue(Number value) {
+      return true;
+    }
+
+    @Override
+    public String getExpectedValues() {
+      return "numbers";
+    }
+  },
   ENUM("enum") {
     @Override
     protected boolean validateStringValue(String value) {

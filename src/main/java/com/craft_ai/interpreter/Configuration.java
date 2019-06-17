@@ -5,8 +5,10 @@ import java.util.Map;
 import java.util.Set;
 
 import com.craft_ai.exceptions.CraftAiInvalidContextException;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Configuration {
 
   private long timeQuantum;

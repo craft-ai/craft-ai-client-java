@@ -9,6 +9,7 @@ public class Node {
   private double confidence;
   private DecisionRule<?> decisionRule;
   private String predictedValue;
+  private double standardDeviation;
 
   private List<Node> children;
 
@@ -18,6 +19,14 @@ public class Node {
 
   public void setConfidence(double confidence) {
     this.confidence = confidence;
+  }
+
+  public double getStandardDeviation() {
+    return standardDeviation;
+  }
+
+  public void setStandardDeviation(double standardDeviation) {
+    this.standardDeviation = standardDeviation;
   }
 
   public DecisionRule<?> getDecisionRule() {

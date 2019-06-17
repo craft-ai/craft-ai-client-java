@@ -12,7 +12,7 @@ public class DecisionTreeParserTest {
   private static final String[] GOOD_TREES = { "tree_1.json", "tree_2.json", "tree_3.json" };
 
   @Test
-  public void parse_GoodTrees_ShouldWork() throws IOException {
+  public void parse_GoodTrees_ShouldWork() throws Exception {
     for (String treeFile : GOOD_TREES) {
       String treeFileData = Resources.getResource(treeFile);
       DecisionTree decisionTree = DecisionTreeParser.parse(treeFileData);

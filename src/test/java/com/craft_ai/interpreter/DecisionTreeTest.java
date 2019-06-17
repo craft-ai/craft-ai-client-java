@@ -20,7 +20,7 @@ import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 public class DecisionTreeTest {
 
   @Test
-  public void interpret_validContext_ShouldWork() throws java.lang.Exception {
+  public void interpret_validContext_ShouldWork() throws Exception {
 
     Map<String, Object> context = new HashMap<>();
     context.put("day_of_week", 5);
@@ -37,7 +37,7 @@ public class DecisionTreeTest {
   }
 
   @Test
-  public void interpret_contextWithMissingProperty_ShouldThrowTheRightError() throws IOException {
+  public void interpret_contextWithMissingProperty_ShouldThrowTheRightError() throws Exception {
     DecisionTree decisionTree = DecisionTreeParser.parse(Resources.getResource("tree_1.json"));
 
     Map<String, Object> context = new HashMap<>();
