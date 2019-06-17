@@ -1,10 +1,8 @@
 package com.craft_ai.interpreter;
 
-import com.craft_ai.interpreter.DecisionTreeInterpreter;
 import com.craft_ai.interpreter.DecisionTreeParser;
 import com.craft_ai.exceptions.CraftAiInvalidContextException;
 import com.craft_ai.interpreter.DecisionRule;
-import com.craft_ai.interpreter;
 import com.craft_ai.interpreter.Interval;
 import com.craft_ai.interpreter.Operator;
 import com.craft_ai.interpreter.Prediction;
@@ -19,7 +17,7 @@ import static com.craft_ai.interpreter.assertions.PredictionAssert.assertThat;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
-public class DecisionTreesInterpreterTest {
+public class DecisionTreeTest {
 
   @Test
   public void interpret_validContext_ShouldWork() throws java.lang.Exception {
@@ -30,7 +28,7 @@ public class DecisionTreesInterpreterTest {
     context.put("timezone", "CEST");
 
     DecisionTree decisionTree = DecisionTreeParser.parse(Resources.getResource("tree_2.json"));
-    Prediction prediction = DecisionTreeInterpreter.interpret(decisionTree, context);
+    Prediction prediction = decisionTree.decide(context);
 
     assertThat(prediction).hasConfidence(0.8053388595581055d).hasPredictValue("False");
 
@@ -57,8 +55,7 @@ public class DecisionTreesInterpreterTest {
     context.put("enum6", "non_applicable");
     context.put("enum7", "average");
 
-    assertThatExceptionOfType(CraftAiInvalidContextException.class)
-        .isThrownBy(() -> DecisionTreeInterpreter.interpret(decisionTree, context))
-        .withMessage("Required property 'movement' is not defined in the given context");
+    assertThatExceptionOfType(CraftAiInvalidContextException.class).isThrownBy(() -> decisionTree.decide(context))
+        .withMessage("Required property 'movement' is not defined in the given context.");
   }
 }

@@ -1,13 +1,19 @@
 package com.craft_ai.interpreter;
 
+import java.util.Arrays;
 import java.util.Map;
+import java.util.Set;
+
+import com.craft_ai.exceptions.CraftAiInvalidContextException;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Configuration {
 
   private long timeQuantum;
   private long learningPeriod;
   private long treeMaxDepth;
-  private Map<String, PropertyConfiguration> context;
+  @JsonProperty("context")
+  private Map<String, PropertyConfiguration> properties;
   private String[] output;
 
   public long getTimeQuantum() {
@@ -34,12 +40,12 @@ public class Configuration {
     this.treeMaxDepth = treeMaxDepth;
   }
 
-  public Map<String, PropertyConfiguration> getContext() {
-    return context;
+  public Map<String, PropertyConfiguration> getProperties() {
+    return properties;
   }
 
-  public void setContext(Map<String, PropertyConfiguration> context) {
-    this.context = context;
+  public void setProperties(Map<String, PropertyConfiguration> properties) {
+    this.properties = properties;
   }
 
   public String[] getOutput() {
@@ -48,5 +54,22 @@ public class Configuration {
 
   public void setOutput(String[] output) {
     this.output = output;
+  }
+
+  public void validate(Map<String, ?> context) throws CraftAiInvalidContextException {
+    Set<String> inputProperties = properties.keySet();
+    inputProperties.removeAll(Arrays.asList(output));
+
+    for (String property : inputProperties) {
+      if (!context.containsKey(property)) {
+        throw new CraftAiInvalidContextException(
+            String.format("Required property '%s' is not defined in the given context.", property));
+      }
+
+      Object value = context.get(property);
+      PropertyType type = properties.get(property).getType();
+
+      type.validate(value);
+    }
   }
 }

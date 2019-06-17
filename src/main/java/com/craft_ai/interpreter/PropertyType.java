@@ -140,7 +140,7 @@ public enum PropertyType {
     return this.label;
   }
 
-  public void validate(Object value) {
+  public void validate(Object value) throws CraftAiInvalidValueException {
     if (value instanceof String) {
       if (!validateStringValue((String) value)) {
         throw new CraftAiInvalidValueException(value, this);

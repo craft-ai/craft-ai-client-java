@@ -1,5 +1,7 @@
 package com.craft_ai.interpreter;
 
+import com.craft_ai.exceptions.CraftAiInvalidContextException;
+import com.craft_ai.interpreter.visitor.InterpreterVisitor;
 import com.craft_ai.interpreter.visitor.DecisionTreeVisitor;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -40,4 +42,14 @@ public class DecisionTree {
     visitor.visit(this);
   }
 
+  public Prediction decide(Map<String, ?> context) throws CraftAiInvalidContextException {
+    configuration.validate(context);
+
+    InterpreterVisitor visitor = new InterpreterVisitor(context);
+    accept(visitor);
+
+    Prediction prediction = visitor.getPrediction();
+
+    return prediction;
+  }
 }

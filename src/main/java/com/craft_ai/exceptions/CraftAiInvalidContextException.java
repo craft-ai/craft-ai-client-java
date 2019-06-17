@@ -6,4 +6,8 @@ public class CraftAiInvalidContextException extends RuntimeException {
   public CraftAiInvalidContextException(String message) {
     super(message);
   }
+
+  public CraftAiInvalidContextException(String message, Exception reason) {
+    super(message, reason);
+  }
 }
