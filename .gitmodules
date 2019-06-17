@@ -1,0 +1,3 @@
+[submodule "src/test/resources/interpreter-test-suite"]
+	path = src/test/resources/interpreter-test-suite
+	url = https://github.com/craft-ai/craft-ai-interpreter-test-suite.git
