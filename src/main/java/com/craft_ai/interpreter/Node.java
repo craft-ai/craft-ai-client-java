@@ -1,13 +1,13 @@
-package com.craft_ai.interpreter.pojo;
+package com.craft_ai.interpreter;
 
-import com.craft_ai.interpreter.decisiontree.visitor.DecisionTreeVisitor;
+import com.craft_ai.interpreter.visitor.DecisionTreeVisitor;
 
 import java.util.List;
 
 public class Node {
 
   private double confidence;
-  private DecisionRule decisionRule;
+  private DecisionRule<?> decisionRule;
   private String predictedValue;
 
   private List<Node> children;
@@ -20,11 +20,11 @@ public class Node {
     this.confidence = confidence;
   }
 
-  public DecisionRule getDecisionRule() {
+  public DecisionRule<?> getDecisionRule() {
     return decisionRule;
   }
 
-  public void setDecisionRule(DecisionRule decisionRule) {
+  public void setDecisionRule(DecisionRule<?> decisionRule) {
     this.decisionRule = decisionRule;
   }
 
