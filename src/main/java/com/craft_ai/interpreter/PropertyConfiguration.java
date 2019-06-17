@@ -1,15 +1,15 @@
 package com.craft_ai.interpreter;
 
-public class Variable {
+public class PropertyConfiguration {
 
-  private String type;
+  private PropertyType type;
   private boolean isGenerated;
 
-  public String getType() {
+  public PropertyType getType() {
     return type;
   }
 
-  public void setType(String type) {
+  public void setType(PropertyType type) {
     this.type = type;
   }
 

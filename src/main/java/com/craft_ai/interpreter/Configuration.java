@@ -7,7 +7,7 @@ public class Configuration {
   private long timeQuantum;
   private long learningPeriod;
   private long treeMaxDepth;
-  private Map<String, Variable> context;
+  private Map<String, PropertyConfiguration> context;
   private String[] output;
 
   public long getTimeQuantum() {
@@ -34,11 +34,11 @@ public class Configuration {
     this.treeMaxDepth = treeMaxDepth;
   }
 
-  public Map<String, Variable> getContext() {
+  public Map<String, PropertyConfiguration> getContext() {
     return context;
   }
 
-  public void setContext(Map<String, Variable> context) {
+  public void setContext(Map<String, PropertyConfiguration> context) {
     this.context = context;
   }
 

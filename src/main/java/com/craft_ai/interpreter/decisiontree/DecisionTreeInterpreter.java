@@ -1,10 +1,10 @@
 package com.craft_ai.interpreter.decisiontree;
 
-import com.craft_ai.interpreter.Validators;
 import com.craft_ai.interpreter.decisiontree.visitor.InterpreterVisitor;
 import com.craft_ai.exceptions.CraftAiInvalidContextException;
 import com.craft_ai.interpreter.DecisionTree;
 import com.craft_ai.interpreter.Prediction;
+import com.craft_ai.interpreter.PropertyType;
 
 import java.util.Arrays;
 import java.util.Map;
@@ -24,9 +24,9 @@ public class DecisionTreeInterpreter {
       }
 
       Object value = context.get(property);
-      String type = decisionTree.getConfiguration().getContext().get(property).getType();
+      PropertyType type = decisionTree.getConfiguration().getContext().get(property).getType();
 
-      Validators.validateValue(value, type);
+      type.validate(value);
     }
 
     InterpreterVisitor visitor = new InterpreterVisitor(context);
