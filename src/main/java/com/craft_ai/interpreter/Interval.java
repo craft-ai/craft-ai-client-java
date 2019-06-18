@@ -25,4 +25,9 @@ public class Interval {
     }
     return false;
   }
+
+  @Override
+  public String toString() {
+    return String.format("[%s, %s]", lowerBound, upperBound);
+  }
 }

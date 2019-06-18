@@ -8,7 +8,7 @@ public class Node {
 
   private double confidence;
   private DecisionRule<?> decisionRule;
-  private String predictedValue;
+  private Object predictedValue;
   private double standardDeviation;
 
   private List<Node> children;
@@ -37,11 +37,11 @@ public class Node {
     this.decisionRule = decisionRule;
   }
 
-  public String getPredictedValue() {
+  public Object getPredictedValue() {
     return predictedValue;
   }
 
-  public void setPredictedValue(String predictedValue) {
+  public void setPredictedValue(Object predictedValue) {
     this.predictedValue = predictedValue;
   }
 

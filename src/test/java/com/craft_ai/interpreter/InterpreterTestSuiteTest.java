@@ -3,6 +3,7 @@ package com.craft_ai.interpreter;
 import static com.craft_ai.interpreter.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCode;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -28,6 +29,7 @@ public class InterpreterTestSuiteTest {
             });
         String serializedDecisionTree = Resources.getResource(expectationFilePath.replace("expectations", "trees"));
         return expectations.stream().map(expectation -> {
+          expectation.title = expectationFilePath + " - " + expectation.title;
           expectation.serializedDecisionTree = serializedDecisionTree;
           return expectation;
         });
@@ -41,12 +43,22 @@ public class InterpreterTestSuiteTest {
   @TestFactory
   public Stream<DynamicTest> interpreterTestSuiteV1Factory() throws IOException, URISyntaxException {
     return loadExpectations("interpreter-test-suite/decide/expectations/v1/")
-        .filter(expectation -> expectation.error == null)
         .map(expectation -> DynamicTest.dynamicTest(expectation.title, () -> {
-          assertThatCode(() -> DecisionTreeParser.parse(expectation.serializedDecisionTree)).doesNotThrowAnyException();
-          DecisionTree tree = DecisionTreeParser.parse(expectation.serializedDecisionTree);
-          assertThat(tree).isNotNull();
-          assertThat(tree.getVersion()).isIn("1.0.0", "1.1.0");
+          if (expectation.error == null) {
+            assertThatCode(() -> DecisionTreeParser.parse(expectation.serializedDecisionTree))
+                .doesNotThrowAnyException();
+            DecisionTree tree = DecisionTreeParser.parse(expectation.serializedDecisionTree);
+            assertThat(tree).isNotNull();
+            assertThat(tree.getVersion()).isIn("1.0.0", "1.1.0");
+            assertThatCode(() -> tree.decide(expectation.context)).doesNotThrowAnyException();
+            DecideOutput output = tree.decide(expectation.context);
+            assertThat(output).isNotNull().isEqualToComparingFieldByFieldRecursively(expectation.output);
+          } else {
+            assertThatThrownBy(() -> {
+              DecisionTree tree = DecisionTreeParser.parse(expectation.serializedDecisionTree);
+              tree.decide(expectation.context);
+            }).isNotNull();
+          }
         }));
   }
 }

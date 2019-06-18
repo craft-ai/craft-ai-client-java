@@ -1,6 +1,7 @@
 package com.craft_ai.interpreter;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
@@ -58,9 +59,11 @@ public class Configuration {
     this.output = output;
   }
 
-  public void validate(Map<String, ?> context) throws CraftAiInvalidContextException {
+  public Map<String, ?> validate(Map<String, ?> context) throws CraftAiInvalidContextException {
     Set<String> inputProperties = properties.keySet();
     inputProperties.removeAll(Arrays.asList(output));
+
+    Map<String, Object> validatedInputContext = new HashMap<String, Object>();
 
     for (String property : inputProperties) {
       if (!context.containsKey(property)) {
@@ -72,6 +75,10 @@ public class Configuration {
       PropertyType type = properties.get(property).getType();
 
       type.validate(value);
+
+      validatedInputContext.put(property, (Object) value);
     }
+
+    return validatedInputContext;
   }
 }

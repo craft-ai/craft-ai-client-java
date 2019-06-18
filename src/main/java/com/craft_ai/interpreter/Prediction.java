@@ -17,12 +17,11 @@ public class Prediction {
   public Prediction() {
   }
 
-  public Prediction(Node leaf, List<DecisionRule<?>> parentDecisionRules) {
+  public Prediction(Node leaf, List<DecisionRule<?>> decisionRules) {
     this.predictedValue = leaf.getPredictedValue();
     this.confidence = leaf.getConfidence();
     this.standardDeviation = leaf.getStandardDeviation();
-    this.decisionRules = parentDecisionRules;
-    this.decisionRules.add(leaf.getDecisionRule());
+    this.decisionRules = decisionRules;
   }
 
   public Object getPredictedValue() {

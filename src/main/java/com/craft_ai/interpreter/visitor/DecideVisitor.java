@@ -1,5 +1,7 @@
 package com.craft_ai.interpreter.visitor;
 
+import com.craft_ai.exceptions.CraftAiInvalidContextException;
+import com.craft_ai.interpreter.Configuration;
 import com.craft_ai.interpreter.DecideOutput;
 import com.craft_ai.interpreter.DecisionRule;
 import com.craft_ai.interpreter.DecisionTree;
@@ -29,8 +31,16 @@ public class DecideVisitor extends DecisionTreeVisitorAdapter {
   @Override
   public void visit(DecisionTree decisionTree) {
     output.setVersion(decisionTree.getVersion());
-    outputProperty = (String) decisionTree.getTrees().keySet().toArray()[0];
     super.visit(decisionTree);
+  }
+
+  @Override
+  public void visit(Configuration configuration) {
+    outputProperty = (String) configuration.getOutput()[0];
+
+    output.setContext(configuration.validate(output.getContext()));
+
+    super.visit(configuration);
   }
 
   @Override
@@ -39,13 +49,19 @@ public class DecideVisitor extends DecisionTreeVisitorAdapter {
       Prediction prediction = new Prediction(node, decisionRules);
       output.setPrediction(outputProperty, prediction);
     } else {
+      DecisionRule<?> decisionRule = null;
+      Map<String, ?> context = this.output.context;
       for (Node n : node.getChildren()) {
-        if (n.getDecisionRule().evaluate(this.output.context)) {
+        decisionRule = n.getDecisionRule();
+        if (decisionRule.evaluate(context)) {
           decisionRules.add(n.getDecisionRule());
           n.accept(this);
-          break;
+          return;
         }
       }
+      throw new CraftAiInvalidContextException(String.format(
+          "Unable to take decision: value '%s' for property '%s' doesn't validate any of the decision rules.",
+          context.get(decisionRule.getProperty()), decisionRule.getProperty()));
     }
   }
 }

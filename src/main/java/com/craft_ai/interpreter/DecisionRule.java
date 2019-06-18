@@ -18,6 +18,10 @@ public abstract class DecisionRule<T> {
     this.operand = operand;
   }
 
+  public String getProperty() {
+    return property;
+  }
+
   public boolean evaluate(Map<String, ?> context) {
     Object value = context.get(property);
     if (value == null) {

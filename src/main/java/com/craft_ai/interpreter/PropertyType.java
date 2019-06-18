@@ -89,6 +89,15 @@ public enum PropertyType {
     }
 
     @Override
+    protected boolean validateNumberValue(Number value) {
+      int intValue = value.intValue();
+      if (intValue != value.doubleValue()) {
+        return false;
+      }
+      return intValue <= 840 && intValue >= -720;
+    }
+
+    @Override
     public String getExpectedValues() {
       return "valid timezone descriptors";
     }
@@ -152,16 +161,18 @@ public enum PropertyType {
   }
 
   public void validate(Object value) throws CraftAiInvalidValueException {
-    if (value instanceof String) {
-      if (!validateStringValue((String) value)) {
-        throw new CraftAiInvalidValueException(value, this);
-      }
-    } else if (value instanceof Number) {
-      if (!validateNumberValue((Number) value)) {
-        throw new CraftAiInvalidValueException(value, this);
-      }
-    } else {
+    if (!validateNoThrow(value)) {
       throw new CraftAiInvalidValueException(value, this);
+    }
+  }
+
+  public boolean validateNoThrow(Object value) {
+    if (value instanceof String) {
+      return validateStringValue((String) value);
+    } else if (value instanceof Number) {
+      return validateNumberValue((Number) value);
+    } else {
+      return false;
     }
   }
 

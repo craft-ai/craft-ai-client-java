@@ -87,7 +87,10 @@
             <param>com.craft_ai.interpreter.DecideOutput</param>
             <param>com.craft_ai.interpreter.DecisionRule</param>
             <param>com.craft_ai.interpreter.DecisionTree</param>
+            <param>com.craft_ai.interpreter.IntervalDecisionRule</param>
+            <param>com.craft_ai.interpreter.NumberDecisionRule</param>
             <param>com.craft_ai.interpreter.Prediction</param>
+            <param>com.craft_ai.interpreter.StringDecisionRule</param>
           </classes>
         </configuration>
       </plugin>
