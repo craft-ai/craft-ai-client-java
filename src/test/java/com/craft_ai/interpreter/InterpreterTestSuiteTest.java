@@ -1,9 +1,11 @@
 package com.craft_ai.interpreter;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatCode;
+
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.List;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import com.craft_ai.interpreter.tools.DecideExpectation;
@@ -11,9 +13,8 @@ import com.craft_ai.interpreter.tools.Resources;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import org.junit.Test;
-
-import static org.assertj.core.api.Assertions.assertThat;
+import org.junit.jupiter.api.DynamicTest;
+import org.junit.jupiter.api.TestFactory;
 
 public class InterpreterTestSuiteTest {
   public static Stream<DecideExpectation> loadExpectations(String path) throws IOException, URISyntaxException {
@@ -36,15 +37,13 @@ public class InterpreterTestSuiteTest {
     });
   }
 
-  @Test
-  public void parse_v1_trees_should_work() throws Exception {
-    List<String> okSerializedTrees = loadExpectations("interpreter-test-suite/decide/expectations/v1/")
-        .filter(expectation -> expectation.error == null).map(expectation -> expectation.serializedDecisionTree)
-        .collect(Collectors.toList());
-
-    for (String serializedTree : okSerializedTrees) {
-      DecisionTree tree = DecisionTreeParser.parse(serializedTree);
-      assertThat(tree).isNotNull();
-    }
+  @TestFactory
+  public Stream<DynamicTest> interpreterTestSuiteV1Factory() throws IOException, URISyntaxException {
+    return loadExpectations("interpreter-test-suite/decide/expectations/v1/")
+        .filter(expectation -> expectation.error == null)
+        .map(expectation -> DynamicTest.dynamicTest(expectation.title, () -> {
+          assertThatCode(() -> DecisionTreeParser.parse(expectation.serializedDecisionTree)).doesNotThrowAnyException();
+          assertThat(DecisionTreeParser.parse(expectation.serializedDecisionTree)).isNotNull();
+        }));
   }
 }

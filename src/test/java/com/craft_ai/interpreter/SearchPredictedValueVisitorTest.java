@@ -1,14 +1,13 @@
 package com.craft_ai.interpreter;
 
-import com.craft_ai.interpreter.DecisionTreeParser;
-import com.craft_ai.interpreter.visitor.SearchPredictedValueVisitor;
-import com.craft_ai.interpreter.Node;
-import com.craft_ai.interpreter.tools.Resources;
-import org.junit.Test;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import com.craft_ai.interpreter.tools.Resources;
+import com.craft_ai.interpreter.visitor.SearchPredictedValueVisitor;
+
+import org.junit.jupiter.api.Test;
 
 public class SearchPredictedValueVisitorTest {
   @Test

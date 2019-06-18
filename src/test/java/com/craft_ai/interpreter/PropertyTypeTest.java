@@ -1,11 +1,11 @@
 package com.craft_ai.interpreter;
 
-import com.craft_ai.exceptions.CraftAiInvalidValueException;
-
-import org.junit.Test;
-
 import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
+
+import com.craft_ai.exceptions.CraftAiInvalidValueException;
+
+import org.junit.jupiter.api.Test;
 
 public class PropertyTypeTest {
 

@@ -1,21 +1,16 @@
 package com.craft_ai.interpreter;
 
-import com.craft_ai.interpreter.DecisionTreeParser;
-import com.craft_ai.exceptions.CraftAiInvalidContextException;
-import com.craft_ai.interpreter.DecisionRule;
-import com.craft_ai.interpreter.Interval;
-import com.craft_ai.interpreter.Operator;
-import com.craft_ai.interpreter.Prediction;
-import com.craft_ai.interpreter.tools.Resources;
-import org.junit.Test;
-
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-
 import static com.craft_ai.interpreter.assertions.PredictionAssert.assertThat;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import com.craft_ai.exceptions.CraftAiInvalidContextException;
+import com.craft_ai.interpreter.tools.Resources;
+
+import org.junit.jupiter.api.Test;
 
 public class DecisionTreeTest {
 
