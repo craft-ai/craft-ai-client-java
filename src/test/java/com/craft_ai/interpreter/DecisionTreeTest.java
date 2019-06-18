@@ -23,11 +23,13 @@ public class DecisionTreeTest {
     context.put("timezone", "CEST");
 
     DecisionTree decisionTree = DecisionTreeParser.parse(Resources.getResource("tree_2.json"));
-    Prediction prediction = decisionTree.decide(context);
+    DecideOutput decideOutput = decisionTree.decide(context);
 
-    assertThat(prediction).hasConfidence(0.8053388595581055d).hasPredictValue("False");
+    Prediction myOutputPrediction = decideOutput.getPrediction("my_output");
 
-    assertThat(prediction.getDecisionRule())
+    assertThat(myOutputPrediction).isNotNull().hasConfidence(0.8053388595581055d).hasPredictedValue("False");
+
+    assertThat(myOutputPrediction.getDecisionRules().get(myOutputPrediction.getDecisionRules().size() - 1))
         .isEqualTo(DecisionRule.create(Operator.IN, "time", new Interval(0, 18.283333)));
   }
 

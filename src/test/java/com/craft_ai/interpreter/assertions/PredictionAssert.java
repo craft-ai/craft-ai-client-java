@@ -25,11 +25,11 @@ public class PredictionAssert extends AbstractAssert<PredictionAssert, Predictio
     return this;
   }
 
-  public PredictionAssert hasPredictValue(Object predictValue) {
+  public PredictionAssert hasPredictedValue(Object predictedValue) {
     isNotNull();
 
-    if (!Objects.equals(actual.getPredictValue(), predictValue)) {
-      failWithMessage("Expected predictValue to be <%s> but was <%s>", predictValue, actual.getPredictValue());
+    if (!Objects.equals(actual.getPredictedValue(), predictedValue)) {
+      failWithMessage("Expected predictValue to be <%s> but was <%s>", predictedValue, actual.getPredictedValue());
     }
 
     return this;

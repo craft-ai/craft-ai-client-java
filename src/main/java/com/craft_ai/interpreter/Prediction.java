@@ -1,10 +1,37 @@
 package com.craft_ai.interpreter;
 
-public class Prediction {
+import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+public class Prediction {
+  @JsonProperty("predicted_value")
+  private Object predictedValue;
+  @JsonProperty("confidence")
   private double confidence;
-  private Object predictValue;
-  private DecisionRule<?> decisionRule;
+  @JsonProperty("standard_deviation")
+  private double standardDeviation;
+  @JsonProperty("decision_rules")
+  private List<DecisionRule<?>> decisionRules;
+
+  public Prediction() {
+  }
+
+  public Prediction(Node leaf, List<DecisionRule<?>> parentDecisionRules) {
+    this.predictedValue = leaf.getPredictedValue();
+    this.confidence = leaf.getConfidence();
+    this.standardDeviation = leaf.getStandardDeviation();
+    this.decisionRules = parentDecisionRules;
+    this.decisionRules.add(leaf.getDecisionRule());
+  }
+
+  public Object getPredictedValue() {
+    return predictedValue;
+  }
+
+  public void setPredictedValue(Object predictedValue) {
+    this.predictedValue = predictedValue;
+  }
 
   public double getConfidence() {
     return confidence;
@@ -14,19 +41,19 @@ public class Prediction {
     this.confidence = confidence;
   }
 
-  public Object getPredictValue() {
-    return predictValue;
+  public double getStandardDeviation() {
+    return standardDeviation;
   }
 
-  public void setPredictValue(Object predictValue) {
-    this.predictValue = predictValue;
+  public void setStandardDeviation(double standardDeviation) {
+    this.standardDeviation = standardDeviation;
   }
 
-  public DecisionRule<?> getDecisionRule() {
-    return decisionRule;
+  public List<DecisionRule<?>> getDecisionRules() {
+    return decisionRules;
   }
 
-  public void setDecisionRule(DecisionRule<?> decisionRule) {
-    this.decisionRule = decisionRule;
+  public void setDecisionRules(List<DecisionRule<?>> decisionRules) {
+    this.decisionRules = decisionRules;
   }
 }
