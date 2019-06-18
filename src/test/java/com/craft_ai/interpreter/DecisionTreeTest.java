@@ -52,6 +52,7 @@ public class DecisionTreeTest {
     context.put("enum7", "average");
 
     assertThatExceptionOfType(CraftAiInvalidContextException.class).isThrownBy(() -> decisionTree.decide(context))
-        .withMessage("Required property 'movement' is not defined in the given context.");
+        .withMessage(
+            "Unable to take decision, the given context is not valid: expected property 'movement' is not defined, expected property 'tz' is not defined, expected property 'time' is not defined.");
   }
 }

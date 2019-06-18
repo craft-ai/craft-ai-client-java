@@ -57,7 +57,7 @@ public class InterpreterTestSuiteTest {
             assertThatThrownBy(() -> {
               DecisionTree tree = DecisionTreeParser.parse(expectation.serializedDecisionTree);
               tree.decide(expectation.context);
-            }).isNotNull();
+            }).hasMessage((String) expectation.error.get("message"));
           }
         }));
   }

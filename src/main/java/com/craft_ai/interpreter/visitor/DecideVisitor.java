@@ -1,6 +1,8 @@
 package com.craft_ai.interpreter.visitor;
 
 import com.craft_ai.exceptions.CraftAiInvalidContextException;
+import com.craft_ai.exceptions.CraftAiInvalidDecisionTreeException;
+import com.craft_ai.exceptions.CraftAiUnableToTakeDecisionException;
 import com.craft_ai.interpreter.Configuration;
 import com.craft_ai.interpreter.DecideOutput;
 import com.craft_ai.interpreter.DecisionRule;
@@ -47,6 +49,12 @@ public class DecideVisitor extends DecisionTreeVisitorAdapter {
   public void visit(Node node) {
     if (node.isLeaf()) {
       Prediction prediction = new Prediction(node, decisionRules);
+
+      if (prediction.getPredictedValue() == null) {
+        throw new CraftAiUnableToTakeDecisionException(
+            "the decision tree has no valid predicted value for the given context", decisionRules);
+      }
+
       output.setPrediction(outputProperty, prediction);
     } else {
       DecisionRule<?> decisionRule = null;
@@ -59,9 +67,10 @@ public class DecideVisitor extends DecisionTreeVisitorAdapter {
           return;
         }
       }
-      throw new CraftAiInvalidContextException(String.format(
-          "Unable to take decision: value '%s' for property '%s' doesn't validate any of the decision rules.",
-          context.get(decisionRule.getProperty()), decisionRule.getProperty()));
+      throw new CraftAiUnableToTakeDecisionException(
+          String.format("value '%s' for property '%s' doesn't validate any of the decision rules",
+              context.get(decisionRule.getProperty()), decisionRule.getProperty()),
+          decisionRules);
     }
   }
 }

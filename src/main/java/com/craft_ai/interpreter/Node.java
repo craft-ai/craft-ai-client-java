@@ -58,7 +58,7 @@ public class Node {
   }
 
   public boolean isLeaf() {
-    return predictedValue != null;
+    return children == null || children.size() == 0;
   }
 
   public boolean isRoot() {
