@@ -1,5 +1,6 @@
 package com.craft_ai.interpreter;
 
+import static com.craft_ai.interpreter.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCode;
 
@@ -43,7 +44,9 @@ public class InterpreterTestSuiteTest {
         .filter(expectation -> expectation.error == null)
         .map(expectation -> DynamicTest.dynamicTest(expectation.title, () -> {
           assertThatCode(() -> DecisionTreeParser.parse(expectation.serializedDecisionTree)).doesNotThrowAnyException();
-          assertThat(DecisionTreeParser.parse(expectation.serializedDecisionTree)).isNotNull();
+          DecisionTree tree = DecisionTreeParser.parse(expectation.serializedDecisionTree);
+          assertThat(tree).isNotNull();
+          assertThat(tree.getVersion()).isIn("1.0.0", "1.1.0");
         }));
   }
 }

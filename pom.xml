@@ -72,6 +72,26 @@
   <build>
     <plugins>
       <plugin>
+        <groupId>org.assertj</groupId>
+        <artifactId>assertj-assertions-generator-maven-plugin</artifactId>
+        <version>2.1.0</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>generate-assertions</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <classes>
+            <param>com.craft_ai.interpreter.DecideOutput</param>
+            <param>com.craft_ai.interpreter.DecisionRule</param>
+            <param>com.craft_ai.interpreter.DecisionTree</param>
+            <param>com.craft_ai.interpreter.Prediction</param>
+          </classes>
+        </configuration>
+      </plugin>
+      <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-enforcer-plugin</artifactId>
         <version>3.0.0-M2</version>

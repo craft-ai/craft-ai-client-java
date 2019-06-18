@@ -1,7 +1,6 @@
 package com.craft_ai.interpreter;
 
-import static com.craft_ai.interpreter.assertions.PredictionAssert.assertThat;
-import static org.assertj.core.api.Assertions.assertThat;
+import static com.craft_ai.interpreter.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 import java.util.HashMap;
