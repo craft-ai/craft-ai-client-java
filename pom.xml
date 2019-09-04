@@ -23,6 +23,8 @@
     <maven.compiler.target>1.8</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+    <junit.jupiter.version>5.3.0</junit.jupiter.version>
   </properties>
 
   <dependencies>
@@ -39,9 +41,23 @@
     </dependency>
 
     <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.12</version>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-api</artifactId>
+      <version>${junit.jupiter.version}</version>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-params</artifactId>
+      <version>${junit.jupiter.version}</version>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-engine</artifactId>
+      <version>${junit.jupiter.version}</version>
       <scope>test</scope>
     </dependency>
 
@@ -55,6 +71,29 @@
 
   <build>
     <plugins>
+      <plugin>
+        <groupId>org.assertj</groupId>
+        <artifactId>assertj-assertions-generator-maven-plugin</artifactId>
+        <version>2.1.0</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>generate-assertions</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <classes>
+            <param>com.craft_ai.interpreter.DecideOutput</param>
+            <param>com.craft_ai.interpreter.DecisionRule</param>
+            <param>com.craft_ai.interpreter.DecisionTree</param>
+            <param>com.craft_ai.interpreter.IntervalDecisionRule</param>
+            <param>com.craft_ai.interpreter.NumberDecisionRule</param>
+            <param>com.craft_ai.interpreter.Prediction</param>
+            <param>com.craft_ai.interpreter.StringDecisionRule</param>
+          </classes>
+        </configuration>
+      </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-enforcer-plugin</artifactId>
@@ -80,6 +119,10 @@
             </configuration>
           </execution>
         </executions>
+      </plugin>
+      <plugin>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>3.0.0-M3</version>
       </plugin>
     </plugins>
   </build>

@@ -1,11 +1,11 @@
 package com.craft_ai.interpreter;
 
-import com.craft_ai.exceptions.CraftAiInvalidValueException;
-
-import org.junit.Test;
-
 import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
+
+import com.craft_ai.exceptions.CraftAiInvalidValueException;
+
+import org.junit.jupiter.api.Test;
 
 public class PropertyTypeTest {
 
@@ -18,13 +18,13 @@ public class PropertyTypeTest {
   public void test_is_not_continous_value() {
     assertThatExceptionOfType(CraftAiInvalidValueException.class)
         .isThrownBy(() -> PropertyType.CONTINUOUS.validate("25"))
-        .withMessage("'25' is an invalid value for type 'continuous', expected values are numbers.");
+        .withMessage("'25' is not a valid value of type 'continuous'.");
   }
 
   @Test
   public void test_boolean_is_not_enum_value() {
     assertThatExceptionOfType(CraftAiInvalidValueException.class).isThrownBy(() -> PropertyType.ENUM.validate(true))
-        .withMessage("'true' is an invalid value for type 'enum', expected values are strings.");
+        .withMessage("'true' is not a valid value of type 'enum'.");
   }
 
   @Test
@@ -35,7 +35,7 @@ public class PropertyTypeTest {
   @Test
   public void test_number_is_not_enum_value() {
     assertThatExceptionOfType(CraftAiInvalidValueException.class).isThrownBy(() -> PropertyType.ENUM.validate(125))
-        .withMessage("'125' is an invalid value for type 'enum', expected values are strings.");
+        .withMessage("'125' is not a valid value of type 'enum'.");
   }
 
   @Test
@@ -47,14 +47,14 @@ public class PropertyTypeTest {
   public void test_day_of_month_out_of_bounds() {
     assertThatExceptionOfType(CraftAiInvalidValueException.class)
         .isThrownBy(() -> PropertyType.DAY_OF_MONTH.validate(125))
-        .withMessage("'125' is an invalid value for type 'day_of_month', expected values are integers in [1, 31].");
+        .withMessage("'125' is not a valid value of type 'day_of_month'.");
   }
 
   @Test
   public void test_day_of_month_with_wrong_type() {
     assertThatExceptionOfType(CraftAiInvalidValueException.class)
         .isThrownBy(() -> PropertyType.DAY_OF_MONTH.validate("25"))
-        .withMessage("'25' is an invalid value for type 'day_of_month', expected values are integers in [1, 31].");
+        .withMessage("'25' is not a valid value of type 'day_of_month'.");
   }
 
   @Test
@@ -66,14 +66,14 @@ public class PropertyTypeTest {
   public void test_time_of_day_out_of_bounds() {
     assertThatExceptionOfType(CraftAiInvalidValueException.class)
         .isThrownBy(() -> PropertyType.TIME_OF_DAY.validate(125))
-        .withMessage("'125' is an invalid value for type 'time_of_day', expected values are in [0, 24[.");
+        .withMessage("'125' is not a valid value of type 'time_of_day'.");
   }
 
   @Test
   public void test_time_of_day_with_wrong_type() {
     assertThatExceptionOfType(CraftAiInvalidValueException.class)
         .isThrownBy(() -> PropertyType.TIME_OF_DAY.validate("25"))
-        .withMessage("'25' is an invalid value for type 'time_of_day', expected values are in [0, 24[.");
+        .withMessage("'25' is not a valid value of type 'time_of_day'.");
   }
 
   @Test
@@ -110,14 +110,14 @@ public class PropertyTypeTest {
   public void test_hours_of_out_bound() {
     assertThatExceptionOfType(CraftAiInvalidValueException.class)
         .isThrownBy(() -> PropertyType.TIMEZONE.validate("-25"))
-        .withMessage("'-25' is an invalid value for type 'timezone', expected values are valid timezone descriptors.");
+        .withMessage("'-25' is not a valid value of type 'timezone'.");
   }
 
   @Test
   public void test_minutes_of_out_bound() {
     assertThatExceptionOfType(CraftAiInvalidValueException.class)
-        .isThrownBy(() -> PropertyType.TIMEZONE.validate("15:75")).withMessage(
-            "'15:75' is an invalid value for type 'timezone', expected values are valid timezone descriptors.");
+        .isThrownBy(() -> PropertyType.TIMEZONE.validate("15:75"))
+        .withMessage("'15:75' is not a valid value of type 'timezone'.");
   }
 
   @Test
@@ -129,7 +129,7 @@ public class PropertyTypeTest {
   public void test_day_of_week_out_of_bounds() {
     assertThatExceptionOfType(CraftAiInvalidValueException.class)
         .isThrownBy(() -> PropertyType.DAY_OF_WEEK.validate(-5))
-        .withMessage("'-5' is an invalid value for type 'day_of_week', expected values are integers in [0, 6].");
+        .withMessage("'-5' is not a valid value of type 'day_of_week'.");
   }
 
   @Test
@@ -141,7 +141,7 @@ public class PropertyTypeTest {
   public void test_month_of_year_out_of_bounds() {
     assertThatExceptionOfType(CraftAiInvalidValueException.class)
         .isThrownBy(() -> PropertyType.MONTH_OF_YEAR.validate(-5))
-        .withMessage("'-5' is an invalid value for type 'month_of_year', expected values are integers in [1, 12].");
+        .withMessage("'-5' is not a valid value of type 'month_of_year'.");
   }
 
 }

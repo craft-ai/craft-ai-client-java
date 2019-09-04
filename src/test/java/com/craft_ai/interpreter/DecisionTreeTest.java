@@ -1,26 +1,20 @@
 package com.craft_ai.interpreter;
 
-import com.craft_ai.interpreter.DecisionTreeParser;
-import com.craft_ai.exceptions.CraftAiInvalidContextException;
-import com.craft_ai.interpreter.DecisionRule;
-import com.craft_ai.interpreter.Interval;
-import com.craft_ai.interpreter.Operator;
-import com.craft_ai.interpreter.Prediction;
-import com.craft_ai.interpreter.tools.Resources;
-import org.junit.Test;
+import static com.craft_ai.interpreter.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.craft_ai.interpreter.assertions.PredictionAssert.assertThat;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
+import com.craft_ai.exceptions.CraftAiInvalidContextException;
+import com.craft_ai.interpreter.tools.Resources;
+
+import org.junit.jupiter.api.Test;
 
 public class DecisionTreeTest {
 
   @Test
-  public void interpret_validContext_ShouldWork() throws java.lang.Exception {
+  public void interpret_validContext_ShouldWork() throws Exception {
 
     Map<String, Object> context = new HashMap<>();
     context.put("day_of_week", 5);
@@ -28,16 +22,18 @@ public class DecisionTreeTest {
     context.put("timezone", "CEST");
 
     DecisionTree decisionTree = DecisionTreeParser.parse(Resources.getResource("tree_2.json"));
-    Prediction prediction = decisionTree.decide(context);
+    DecideOutput decideOutput = decisionTree.decide(context);
 
-    assertThat(prediction).hasConfidence(0.8053388595581055d).hasPredictValue("False");
+    Prediction myOutputPrediction = decideOutput.getPrediction("my_output");
 
-    assertThat(prediction.getDecisionRule())
+    assertThat(myOutputPrediction).isNotNull().hasConfidence(0.8053388595581055d).hasPredictedValue("False");
+
+    assertThat(myOutputPrediction.getDecisionRules().get(myOutputPrediction.getDecisionRules().size() - 1))
         .isEqualTo(DecisionRule.create(Operator.IN, "time", new Interval(0, 18.283333)));
   }
 
   @Test
-  public void interpret_contextWithMissingProperty_ShouldThrowTheRightError() throws IOException {
+  public void interpret_contextWithMissingProperty_ShouldThrowTheRightError() throws Exception {
     DecisionTree decisionTree = DecisionTreeParser.parse(Resources.getResource("tree_1.json"));
 
     Map<String, Object> context = new HashMap<>();
@@ -56,6 +52,7 @@ public class DecisionTreeTest {
     context.put("enum7", "average");
 
     assertThatExceptionOfType(CraftAiInvalidContextException.class).isThrownBy(() -> decisionTree.decide(context))
-        .withMessage("Required property 'movement' is not defined in the given context.");
+        .withMessage(
+            "Unable to take decision, the given context is not valid: expected property 'movement' is not defined, expected property 'tz' is not defined, expected property 'time' is not defined.");
   }
 }

@@ -1,18 +1,14 @@
 package com.craft_ai.interpreter;
 
-import org.junit.Test;
-
 import static org.assertj.core.api.Assertions.assertThat;
-
-import com.craft_ai.exceptions.CraftAiInvalidContextException;
-import com.craft_ai.interpreter.DecisionRule;
-import com.craft_ai.interpreter.Interval;
-import com.craft_ai.interpreter.Operator;
-
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import com.craft_ai.exceptions.CraftAiInvalidContextException;
+
+import org.junit.jupiter.api.Test;
 
 public class DecisionRuleTest {
   private static final Map<String, Object> TEST_CONTEXT = new HashMap<String, Object>();

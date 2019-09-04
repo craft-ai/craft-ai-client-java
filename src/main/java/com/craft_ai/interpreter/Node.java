@@ -8,7 +8,8 @@ public class Node {
 
   private double confidence;
   private DecisionRule<?> decisionRule;
-  private String predictedValue;
+  private Object predictedValue;
+  private double standardDeviation;
 
   private List<Node> children;
 
@@ -20,6 +21,14 @@ public class Node {
     this.confidence = confidence;
   }
 
+  public double getStandardDeviation() {
+    return standardDeviation;
+  }
+
+  public void setStandardDeviation(double standardDeviation) {
+    this.standardDeviation = standardDeviation;
+  }
+
   public DecisionRule<?> getDecisionRule() {
     return decisionRule;
   }
@@ -28,11 +37,11 @@ public class Node {
     this.decisionRule = decisionRule;
   }
 
-  public String getPredictedValue() {
+  public Object getPredictedValue() {
     return predictedValue;
   }
 
-  public void setPredictedValue(String predictedValue) {
+  public void setPredictedValue(Object predictedValue) {
     this.predictedValue = predictedValue;
   }
 
@@ -49,7 +58,7 @@ public class Node {
   }
 
   public boolean isLeaf() {
-    return predictedValue != null;
+    return children == null || children.size() == 0;
   }
 
   public boolean isRoot() {

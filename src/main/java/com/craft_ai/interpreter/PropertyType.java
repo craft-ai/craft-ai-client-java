@@ -16,11 +16,6 @@ public enum PropertyType {
     protected boolean validateNumberValue(Number value) {
       return value.doubleValue() >= 0 && value.doubleValue() < 24;
     }
-
-    @Override
-    public String getExpectedValues() {
-      return "in [0, 24[";
-    }
   },
   DAY_OF_MONTH("day_of_month") {
     @Override
@@ -29,11 +24,6 @@ public enum PropertyType {
         return value.intValue() >= 1 && value.intValue() <= 31;
       }
       return false;
-    }
-
-    @Override
-    public String getExpectedValues() {
-      return "integers in [1, 31]";
     }
   },
   DAY_OF_WEEK("day_of_week") {
@@ -44,11 +34,6 @@ public enum PropertyType {
       }
       return false;
     }
-
-    @Override
-    public String getExpectedValues() {
-      return "integers in [0, 6]";
-    }
   },
   MONTH_OF_YEAR("month_of_year") {
     @Override
@@ -57,11 +42,6 @@ public enum PropertyType {
         return value.intValue() >= 1 && value.intValue() <= 12;
       }
       return false;
-    }
-
-    @Override
-    public String getExpectedValues() {
-      return "integers in [1, 12]";
     }
   },
   TIMEZONE("timezone") {
@@ -89,8 +69,12 @@ public enum PropertyType {
     }
 
     @Override
-    public String getExpectedValues() {
-      return "valid timezone descriptors";
+    protected boolean validateNumberValue(Number value) {
+      int intValue = value.intValue();
+      if (intValue != value.doubleValue()) {
+        return false;
+      }
+      return intValue <= 840 && intValue >= -720;
     }
   },
   CONTINUOUS("continuous") {
@@ -98,21 +82,17 @@ public enum PropertyType {
     protected boolean validateNumberValue(Number value) {
       return true;
     }
-
+  },
+  PERIODIC("periodic") {
     @Override
-    public String getExpectedValues() {
-      return "numbers";
+    protected boolean validateNumberValue(Number value) {
+      return true;
     }
   },
   ENUM("enum") {
     @Override
     protected boolean validateStringValue(String value) {
       return true;
-    }
-
-    @Override
-    public String getExpectedValues() {
-      return "strings";
     }
   };
 
@@ -141,16 +121,24 @@ public enum PropertyType {
   }
 
   public void validate(Object value) throws CraftAiInvalidValueException {
-    if (value instanceof String) {
-      if (!validateStringValue((String) value)) {
-        throw new CraftAiInvalidValueException(value, this);
-      }
-    } else if (value instanceof Number) {
-      if (!validateNumberValue((Number) value)) {
-        throw new CraftAiInvalidValueException(value, this);
-      }
-    } else {
+    if (!validateNoThrow(value)) {
       throw new CraftAiInvalidValueException(value, this);
+    }
+  }
+
+  public void validate(String property, Object value) throws CraftAiInvalidValueException {
+    if (!validateNoThrow(value)) {
+      throw new CraftAiInvalidValueException(property, value, this);
+    }
+  }
+
+  public boolean validateNoThrow(Object value) {
+    if (value instanceof String) {
+      return validateStringValue((String) value);
+    } else if (value instanceof Number) {
+      return validateNumberValue((Number) value);
+    } else {
+      return false;
     }
   }
 
@@ -161,8 +149,6 @@ public enum PropertyType {
   protected boolean validateNumberValue(Number value) {
     return false;
   }
-
-  public abstract String getExpectedValues();
 
   @JsonCreator
   public static PropertyType fromLabel(String label) {
